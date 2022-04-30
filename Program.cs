@@ -4,26 +4,31 @@ class MainClass
 {
     public static void Main(string[] args)
     {
-        string dirName = @"C:\Users\ivans\Desktop\Students";
-        Directory.CreateDirectory(dirName);
+        string Dirname = @"C:\Users\ivans\Desktop\Students";
+        Directory.CreateDirectory(Dirname);
         BinaryFormatter form = new BinaryFormatter();
         Student[] studs;
-        using (FileStream fs = new FileStream("Students(4).dat", FileMode.OpenOrCreate))
-        {
-            try
-            {
-                studs = (Student[])form.Deserialize(fs);
-                Console.WriteLine("Объект десериализован");
-                foreach (var item in studs)
-                {
-                    Console.WriteLine(item);
-                }
-            }
-            catch (Exception e) { Console.WriteLine(e.Message); }
-        }
+        //using (FileStream fs = new FileStream("Students(4).dat", FileMode.OpenOrCreate))
+        //{
+        //    try
+        //    {
+        //        studs = (Student[])form.Deserialize(fs);
+        //        Console.WriteLine("объект десериализован");
+        //        foreach (var item in studs)
+        //        {
+        //            Console.WriteLine(item);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.GetType());
+        //    }
+        //}
+        studentdeserializer SD = new studentdeserializer();
+        studs = SD.DesertStuds("Students(4).dat");
     }
     [Serializable]
-    class Student
+    public class Student
     {
         public string Name { get; set; }
         public string Group { get; set; }
@@ -41,6 +46,32 @@ class MainClass
             return result;
         }
     }
+    public class studentdeserializer
+    {
+        public Student[] DesertStuds(string filename) 
+        {
+            BinaryFormatter form = new BinaryFormatter();
+            Student[] studs = null;
+            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+            {
+                try
+                {
+                    studs = (Student[])form.Deserialize(fs);
+                    Console.WriteLine("объект десериализован");
+                    foreach (var item in studs)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.GetType());
+                }
+            }
+            return studs;
+        }
 
+    }
 
 }
