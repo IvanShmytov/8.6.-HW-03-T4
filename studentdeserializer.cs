@@ -1,35 +1,38 @@
-﻿using System.Runtime.Serialization.Formatters.Binary;
-
-partial class MainClass
+﻿namespace FinalTask
 {
-    public class studentdeserializer
+    using System.Runtime.Serialization.Formatters.Binary;
+
+    partial class MainClass
     {
-        public Student[] DesertStuds(string filename) 
+        public class Studentdeserializer
         {
-            BinaryFormatter form = new BinaryFormatter();
-            Student[] studs = null;
-            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+            public Student[] DesertStuds(string filename)
             {
-                try
+                BinaryFormatter form = new BinaryFormatter();
+                Student[] studs = null;
+                using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
                 {
-                    studs = (Student[])form.Deserialize(fs);
-                    Console.WriteLine("объект десериализован");
-                    foreach (var item in studs)
+                    try
                     {
-                        Console.WriteLine(item);
+                        studs = (Student[])form.Deserialize(fs);
+                        Console.WriteLine("объект десериализован");
+                        foreach (var item in studs)
+                        {
+                            Console.WriteLine(item);
+                        }
+
                     }
-                    
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.GetType());
+                        Console.WriteLine(e.Message);
+                    }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.GetType());
-                    Console.WriteLine(e.Message);
-                }
+                return studs;
             }
-            return studs;
+
+
         }
-       
 
     }
-
 }
