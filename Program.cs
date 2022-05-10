@@ -10,7 +10,7 @@
             Directory.CreateDirectory(Dirname);
             Student[] students;
             Studentdeserializer SD = new Studentdeserializer();
-            students = SD.DesertStuds("Students(4).dat");
+            students = SD.DesertStuds(@"C:\Users\ivans\source\repos\Modul8Task4\Students (5).dat");
             //foreach (Student item in students)
             //{
             //    item.ReadStudToFile();
